@@ -7,7 +7,7 @@ export const initialState = {
     middleName: '',
     lastName: '',
     role: '',
-    branchName:'',
+    branchName: '',
   },
   isLoading: true,
   isAuthenticated: false,

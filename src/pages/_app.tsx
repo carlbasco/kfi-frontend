@@ -9,7 +9,6 @@ import Router from 'next/router'
 import { useEffect, useState } from 'react'
 import { Provider } from 'react-redux'
 
-
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const [loading, setLoading] = useState(false)
   useEffect(() => {

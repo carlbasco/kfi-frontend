@@ -22,7 +22,6 @@ import { useEffect, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import useSWR, { mutate } from 'swr'
 
-
 const MonthlyIncome = () => {
   const { data } = useSWR('/api/income')
   const [openNewForm, setOpenNewForm] = useState(false)

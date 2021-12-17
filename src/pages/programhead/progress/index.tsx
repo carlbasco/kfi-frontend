@@ -7,7 +7,6 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 
-
 const ProgressNote = () => {
   const router = useRouter()
   const { data } = useSWR('/api/progressnote')
@@ -62,7 +61,8 @@ const ProgressNote = () => {
             {
               icon: <Visibility color="secondary" />,
               tooltip: 'View',
-              onClick: (rowData) => router.push(`/programhead/progress/${rowData.id}`),
+              onClick: (rowData) =>
+                router.push(`/programhead/progress/${rowData.id}`),
             },
           ]}
         />

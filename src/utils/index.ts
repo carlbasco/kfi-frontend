@@ -5,7 +5,7 @@ interface DownloadImageProps {
   id: string | undefined | string[]
 }
 
-const downloadImage = async (url:string) => {
+const downloadImage = async (url: string) => {
   const res = await ApiAuth.get(url, { responseType: 'blob' })
   const obj = window.URL.createObjectURL(await res.data)
   const link = document.createElement('a')

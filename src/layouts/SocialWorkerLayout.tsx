@@ -9,7 +9,7 @@ import {
   Tab,
   Tabs,
   Toolbar,
-  Typography,
+  Typography
 } from '@mui/material'
 import { Box } from '@mui/system'
 import { ReduxState } from '@redux'

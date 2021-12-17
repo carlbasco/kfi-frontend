@@ -4,35 +4,34 @@ import { css } from '@emotion/react'
 import { AdminLayout } from '@layouts'
 import { ApiAuth, Snackbar } from '@lib'
 import {
-    Check,
-    Close,
-    Delete,
-    Edit,
-    Loop,
-    MoreHoriz,
-    Visibility
+  Check,
+  Close,
+  Delete,
+  Edit,
+  Loop,
+  MoreHoriz,
+  Visibility
 } from '@mui/icons-material'
 import { LoadingButton } from '@mui/lab'
 import {
-    Avatar,
-    Breadcrumbs,
-    Button,
-    Chip,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-    Grid,
-    Paper,
-    Typography
+  Avatar,
+  Breadcrumbs,
+  Button,
+  Chip,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Grid,
+  Paper,
+  Typography
 } from '@mui/material'
 import { Box } from '@mui/system'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import useSWR, { mutate } from 'swr'
-
 
 const Admin = () => {
   const router = useRouter()
@@ -146,7 +145,7 @@ const Admin = () => {
               {
                 title: 'Branch',
                 align: 'left',
-                field:'',
+                field: '',
                 render: (rowData) => `${rowData.branch?.branchName}`,
               },
               {

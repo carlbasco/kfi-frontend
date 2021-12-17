@@ -1,35 +1,35 @@
 /** @jsxImportSource @emotion/react */
 import { CustomListItem, NotificationMenu, SettingsMenu } from '@components'
 import {
-    AccountCircle,
-    Class,
-    CreditCard,
-    Dashboard,
-    Description,
-    ExpandLess,
-    ExpandMore,
-    Folder,
-    HomeWork,
-    ManageAccounts,
-    Menu,
-    MoreHoriz,
-    NoteAlt,
-    Room
+  AccountCircle,
+  Class,
+  CreditCard,
+  Dashboard,
+  Description,
+  ExpandLess,
+  ExpandMore,
+  Folder,
+  HomeWork,
+  ManageAccounts,
+  Menu,
+  MoreHoriz,
+  NoteAlt,
+  Room
 } from '@mui/icons-material'
 import {
-    AppBar,
-    Avatar,
-    Collapse,
-    Container,
-    Divider,
-    Drawer,
-    IconButton,
-    List,
-    ListItemButton,
-    ListItemIcon,
-    ListItemText,
-    Toolbar,
-    Typography
+  AppBar,
+  Avatar,
+  Collapse,
+  Container,
+  Divider,
+  Drawer,
+  IconButton,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Toolbar,
+  Typography
 } from '@mui/material'
 import { Box } from '@mui/system'
 import { ReduxState } from '@redux'
@@ -40,7 +40,6 @@ import { useRouter } from 'next/router'
 import { ReactNode, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import logo from '../../public/apple-touch-icon.png'
-
 
 const AdminLayout = ({ children, window }: Props) => {
   const router = useRouter()
@@ -65,23 +64,15 @@ const AdminLayout = ({ children, window }: Props) => {
   const drawer = (
     <>
       <Toolbar css={styles.toolbar}>
-        <Avatar
-          sx={{ bgcolor: 'secondary.main' }}
-          css={styles.accountCircle}
-        >
+        <Avatar sx={{ bgcolor: 'secondary.main' }} css={styles.accountCircle}>
           <AccountCircle fontSize="large" />
         </Avatar>
         <Box css={styles.accountBox}>
-          <Typography
-            variant="subtitle1"
-            fontWeight={700}
-            lineHeight={1}
-            
-          >
+          <Typography variant="subtitle1" fontWeight={700} lineHeight={1}>
             {accountName}
           </Typography>
           <Typography variant="caption" css={styles.accountRole}>
-          {user.branchName} - Admin
+            {user.branchName} - Admin
           </Typography>
         </Box>
       </Toolbar>

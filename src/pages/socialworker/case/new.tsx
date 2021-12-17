@@ -27,7 +27,7 @@ import {
   Paper,
   TextField,
   Tooltip,
-  Typography,
+  Typography
 } from '@mui/material'
 import { Box } from '@mui/system'
 import { CaseDefaultValues, CaseForm, CaseFormYup } from '@validation'
@@ -38,7 +38,7 @@ import {
   Controller,
   SubmitHandler,
   useFieldArray,
-  useForm,
+  useForm
 } from 'react-hook-form'
 import useSWR from 'swr'
 

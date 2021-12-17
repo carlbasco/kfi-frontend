@@ -7,7 +7,6 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 
-
 const Budget = () => {
   const router = useRouter()
   const { data } = useSWR('/api/budget')

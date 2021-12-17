@@ -22,7 +22,7 @@ import {
   InputLabel,
   OutlinedInput,
   TextField,
-  Typography,
+  Typography
 } from '@mui/material'
 import { Box } from '@mui/system'
 import styles from '@styles/filemaintenance'
@@ -116,8 +116,9 @@ const Branch = () => {
                 field: '',
                 minWidth: '120px',
                 render: (rowData) =>
-                  rowData?.branchHead ?
-                  `${rowData?.branchHead?.firstName} ${rowData?.branchHead?.lastName}` : `-`,
+                  rowData?.branchHead
+                    ? `${rowData?.branchHead?.firstName} ${rowData?.branchHead?.lastName}`
+                    : `-`,
               },
               {
                 title: 'Contact',

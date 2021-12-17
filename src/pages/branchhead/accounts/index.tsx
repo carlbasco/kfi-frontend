@@ -5,11 +5,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { BranchHeadLayout } from '@layouts'
 import { ApiAuth, Snackbar } from '@lib'
 import {
-  Close,
-  Delete,
-  Edit,
+  Close, Edit,
   Visibility,
-  VisibilityOff,
+  VisibilityOff
 } from '@mui/icons-material'
 import { LoadingButton } from '@mui/lab'
 import {
@@ -33,7 +31,7 @@ import {
   Radio,
   RadioGroup,
   TextField,
-  Typography,
+  Typography
 } from '@mui/material'
 import { Box } from '@mui/system'
 import {
@@ -42,7 +40,7 @@ import {
   AccountUpdateFormYup,
   BranchAccountUpdateDefaultValues,
   BranchAccountUpdateForm,
-  BranchAccountUpdateFormYup,
+  BranchAccountUpdateFormYup
 } from '@validation'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
@@ -396,7 +394,10 @@ const EditDialog = ({ open, handleDialog, id }: EditDialogProps) => {
     try {
       setFetchLoading(true)
       setFetchLoading(true)
-      const res = await ApiAuth.put(`/api/branchhead/account/${id}`, newFormData)
+      const res = await ApiAuth.put(
+        `/api/branchhead/account/${id}`,
+        newFormData
+      )
       const data = await res.data
       mutate('/api/branchhead/accounts')
       setFetchLoading(false)

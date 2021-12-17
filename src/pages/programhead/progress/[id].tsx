@@ -5,25 +5,24 @@ import { ProgramHeadLayout } from '@layouts'
 import { ApiAuth, Snackbar } from '@lib'
 import { LoadingButton } from '@mui/lab'
 import {
-    Chip,
-    CircularProgress,
-    Grid,
-    Paper,
-    TextField,
-    Typography
+  Chip,
+  CircularProgress,
+  Grid,
+  Paper,
+  TextField,
+  Typography
 } from '@mui/material'
 import { Box } from '@mui/system'
 import {
-    ProgressNoteRemarkDefaultValues,
-    ProgressNoteRemarkForm,
-    ProgressNoteRemarkFormYup
+  ProgressNoteRemarkDefaultValues,
+  ProgressNoteRemarkForm,
+  ProgressNoteRemarkFormYup
 } from '@validation'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import useSWR, { mutate } from 'swr'
-
 
 const ProgressNote = () => {
   const router = useRouter()

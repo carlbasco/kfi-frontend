@@ -9,7 +9,7 @@ import {
   IconButton,
   InputAdornment,
   TextField,
-  Typography,
+  Typography
 } from '@mui/material'
 import { Box } from '@mui/system'
 import { Auth, AuthState, LoginPayload, ReduxState } from '@redux'

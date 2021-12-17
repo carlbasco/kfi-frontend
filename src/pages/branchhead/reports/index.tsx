@@ -1,29 +1,33 @@
 /** @jsxImportSource @emotion/react */
-import { BudgetDoc, BudgetListDoc, CaseDoc, CaseListDoc } from '@components'
+import {
+  BudgetDoc,
+  BudgetListDoc,
+  CaseDoc,
+  CaseListDoc,
+  RequestListDoc
+} from '@components'
 import { css } from '@emotion/react'
 import { BranchHeadLayout } from '@layouts'
 import { ApiAuth, Snackbar } from '@lib'
 import {
   LoadingButton,
   LocalizationProvider,
-  MobileDateRangePicker,
+  MobileDateRangePicker
 } from '@mui/lab'
 import DateAdapter from '@mui/lab/AdapterDayjs'
 import { DateRange } from '@mui/lab/DateRangePicker/RangeTypes'
 import {
   Autocomplete,
-  Breadcrumbs,
   Grid,
   MenuItem,
   Paper,
   TextField,
-  Typography,
+  Typography
 } from '@mui/material'
 import { Box } from '@mui/system'
 import { PDFViewer } from '@react-pdf/renderer'
 import { ReduxState } from '@redux'
 import Head from 'next/head'
-import Link from 'next/link'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { useSelector } from 'react-redux'
 import useSWR from 'swr'
@@ -52,6 +56,9 @@ const Report = () => {
   const { data: budgetApi } = useSWR('/api/option/case/budget', {
     refreshInterval: 0,
   })
+  const { data: requestApi } = useSWR('/api/option/typerequest', {
+    refreshInterval: 0,
+  })
 
   const [reportType, setReportType] = useState('')
   const [caseId, setCaseId] = useState('')
@@ -66,10 +73,17 @@ const Report = () => {
     status: 'all',
   })
 
+  const [requestListValue, setRequestListValue] = useState<RequestProps>({
+    date: [null, null],
+    requestId: '',
+    order: 'asc',
+  })
+
   const [casePdf, setCasePdf] = useState({})
   const [caseListPdf, setCaseListPdf] = useState([])
   const [budgetPdf, setBudgetPdf] = useState({})
   const [budgetListPdf, setBudgetListPdf] = useState([])
+  const [requestListPdf, setRequestListPdf] = useState([])
 
   const [fetchLoading, setFetchLoading] = useState(false)
   const setDefaultPDF = () => {
@@ -77,6 +91,7 @@ const Report = () => {
     setCaseListPdf([])
     setBudgetListPdf([])
     setBudgetPdf([])
+    setRequestListPdf([])
   }
 
   const handleChangeReportType = (
@@ -85,6 +100,7 @@ const Report = () => {
     setCaseId('')
     setCaseListValue({ status: 'all', date: [null, null], branchId: 0 })
     setBudgetListValue({ date: [null, null], status: 'all' })
+    setRequestListValue({ date: [null, null], requestId: '', order: 'asc' })
     setDefaultPDF()
     setReportType(e.target.value)
   }
@@ -127,6 +143,17 @@ const Report = () => {
           return Snackbar.info('Budget for this case is empty')
         setBudgetPdf(data)
       }
+      if (reportType === 'requestList') {
+        setDefaultPDF()
+        const res = await ApiAuth.post(
+          '/api/report/requestlist',
+          requestListValue
+        )
+        const data = await res.data
+        if (data.length <= 0 || data === null)
+          return Snackbar.info('Report List for this type of request is empty')
+        setRequestListPdf(data)
+      }
     } catch (err) {
       if (err.reponse?.data) Snackbar.error(err.reponse?.data?.message)
     } finally {
@@ -141,7 +168,6 @@ const Report = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <BranchHeadLayout>
-       
         <Box>
           <Grid container spacing={2}>
             <Grid item xs={12} lg={4}>
@@ -166,6 +192,7 @@ const Report = () => {
                     <MenuItem value="caseList">Case List</MenuItem>
                     <MenuItem value="budget">Budget</MenuItem>
                     <MenuItem value="budgetList">Budget List</MenuItem>
+                    <MenuItem value="requestList">Type of Request</MenuItem>
                   </TextField>
                   {reportType === 'case' && (
                     <Autocomplete
@@ -333,6 +360,82 @@ const Report = () => {
                       </LocalizationProvider>
                     </>
                   )}
+                  {reportType === 'requestList' && (
+                    <>
+                      <TextField
+                        select
+                        required
+                        fullWidth
+                        margin="dense"
+                        label="Request"
+                        name="requestId"
+                        value={requestListValue.requestId}
+                        onChange={(e) => {
+                          setRequestListValue({
+                            ...requestListValue,
+                            [e.target.name]: e.target.value,
+                          })
+                        }}
+                      >
+                        <MenuItem value="0">All</MenuItem>
+                        {requestApi?.map((item: any) => (
+                          <MenuItem key={item.id} value={item.id}>
+                            {item?.requestName}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+                      <TextField
+                        select
+                        required
+                        fullWidth
+                        margin="dense"
+                        name="order"
+                        label="Budget Amount order"
+                        value={requestListValue.order}
+                        onChange={(e) => {
+                          setRequestListValue({
+                            ...requestListValue,
+                            [e.target.name]: e.target.value,
+                          })
+                        }}
+                      >
+                        <MenuItem value="asc">Ascending</MenuItem>
+                        <MenuItem value="desc">Descending</MenuItem>
+                      </TextField>
+                      <LocalizationProvider dateAdapter={DateAdapter}>
+                        <MobileDateRangePicker
+                          endText="To"
+                          startText="From"
+                          value={requestListValue.date}
+                          onChange={(value) => {
+                            setRequestListValue({
+                              ...requestListValue,
+                              date: value,
+                            })
+                          }}
+                          renderInput={(startProps, endProps) => (
+                            <>
+                              <TextField
+                                required
+                                fullWidth
+                                label="From"
+                                margin="dense"
+                                {...startProps}
+                              />
+                              <Box sx={{ mx: 2 }}> to </Box>
+                              <TextField
+                                fullWidth
+                                required
+                                label="To"
+                                margin="dense"
+                                {...endProps}
+                              />
+                            </>
+                          )}
+                        />
+                      </LocalizationProvider>
+                    </>
+                  )}
                   <LoadingButton
                     fullWidth
                     type="submit"
@@ -373,6 +476,17 @@ const Report = () => {
                     user={user}
                     data={budgetListPdf}
                     date={budgetListValue.date}
+                  />
+                </PDFViewer>
+              </Grid>
+            )}
+            {requestListPdf && requestListPdf.length > 0 && (
+              <Grid item xs={12} lg={8}>
+                <PDFViewer width="100%" height="1200px">
+                  <RequestListDoc
+                    user={user}
+                    data={requestListPdf}
+                    date={requestListValue.date}
                   />
                 </PDFViewer>
               </Grid>

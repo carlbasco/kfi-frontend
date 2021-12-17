@@ -7,7 +7,7 @@ import {
   Page,
   StyleSheet,
   Text,
-  View,
+  View
 } from '@react-pdf/renderer'
 import { User } from '@redux'
 import dayjs from 'dayjs'

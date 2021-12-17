@@ -4,7 +4,6 @@ import { css } from '@emotion/react'
 import { BranchHeadLayout } from '@layouts'
 import { Cancel, CheckCircle } from '@mui/icons-material'
 import {
-  Breadcrumbs,
   Chip,
   CircularProgress,
   Divider,
@@ -15,13 +14,12 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Typography,
+  Typography
 } from '@mui/material'
 import { Box } from '@mui/system'
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 import Head from 'next/head'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import useSWR from 'swr'

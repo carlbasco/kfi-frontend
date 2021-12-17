@@ -15,7 +15,7 @@ import {
   IconButton,
   MenuItem,
   TextField,
-  Typography,
+  Typography
 } from '@mui/material'
 import { Box } from '@mui/system'
 import styles from '@styles/filemaintenance'

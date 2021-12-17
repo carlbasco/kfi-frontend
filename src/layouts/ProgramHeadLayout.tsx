@@ -1,23 +1,23 @@
 /** @jsxImportSource @emotion/react */
 import { CustomListItem, NotificationMenu, SettingsMenu } from '@components'
 import {
-    AccountCircle,
-    CreditCard,
-    Dashboard,
-    Description,
-    Menu,
-    NoteAlt
+  AccountCircle,
+  CreditCard,
+  Dashboard,
+  Description,
+  Menu,
+  NoteAlt
 } from '@mui/icons-material'
 import {
-    AppBar,
-    Avatar,
-    Container,
-    Divider,
-    Drawer,
-    IconButton,
-    List,
-    Toolbar,
-    Typography
+  AppBar,
+  Avatar,
+  Container,
+  Divider,
+  Drawer,
+  IconButton,
+  List,
+  Toolbar,
+  Typography
 } from '@mui/material'
 import { Box } from '@mui/system'
 import { ReduxState } from '@redux'
@@ -27,7 +27,6 @@ import Link from 'next/link'
 import { ReactNode, useState } from 'react'
 import { useSelector } from 'react-redux'
 import logo from '../../public/apple-touch-icon.png'
-
 
 const ProgramHeadLayout = ({ children, window }: Props) => {
   const user = useSelector((state: ReduxState) => state.auth.user)
@@ -41,24 +40,19 @@ const ProgramHeadLayout = ({ children, window }: Props) => {
   const drawer = (
     <>
       <Toolbar css={styles.toolbar}>
-        <Avatar  css={styles.accountCircle} sx={{bgcolor:'secondary.main'}} >
-          <AccountCircle fontSize="large"  />
+        <Avatar css={styles.accountCircle} sx={{ bgcolor: 'secondary.main' }}>
+          <AccountCircle fontSize="large" />
         </Avatar>
         <Box css={styles.accountBox}>
-          <Typography
-            variant="subtitle1"
-            fontWeight={700}
-            lineHeight={1}
-            
-          >
+          <Typography variant="subtitle1" fontWeight={700} lineHeight={1}>
             {accountName}
           </Typography>
           <Typography variant="caption" css={styles.accountRole}>
-          {user.branchName} - Program Head
+            {user.branchName} - Program Head
           </Typography>
         </Box>
       </Toolbar>
-      <Divider variant="middle" sx={{mt:'.5em'}}/>
+      <Divider variant="middle" sx={{ mt: '.5em' }} />
       <List css={styles.list}>
         <CustomListItem
           link="/programhead"

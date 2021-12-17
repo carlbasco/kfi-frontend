@@ -6,35 +6,33 @@ import { ApiAuth, Snackbar } from '@lib'
 import { Close, Delete, Edit, Visibility } from '@mui/icons-material'
 import { LoadingButton } from '@mui/lab'
 import {
-    Button,
-    Chip,
-    CircularProgress,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-    FormHelperText,
-    IconButton,
-    MenuItem,
-    TextField
+  Button,
+  Chip,
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  FormHelperText,
+  IconButton,
+  MenuItem,
+  TextField
 } from '@mui/material'
 import { Box } from '@mui/system'
 import {
-    ProgressNoteDefaultValues,
-    ProgressNoteForm,
-    ProgressNoteFormYup,
-    ProgressNoteUpdateDefaultValues,
-    ProgressNoteUpdateForm,
-    ProgressNoteUpdateFormYup
+  ProgressNoteDefaultValues,
+  ProgressNoteForm,
+  ProgressNoteFormYup,
+  ProgressNoteUpdateDefaultValues,
+  ProgressNoteUpdateForm,
+  ProgressNoteUpdateFormYup
 } from '@validation'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import useSWR, { mutate } from 'swr'
-
-
 
 const ProgressNote = () => {
   const router = useRouter()
@@ -408,9 +406,7 @@ const EditDialog = (props: DialogProps) => {
   const { data: caseApi } = useSWR<CaseApi[]>(
     '/api/option/sw/case/progressnote'
   )
-  const { data } = useSWR(
-    props.open ? `/api/progressnote/${props.id}` : null
-  )
+  const { data } = useSWR(props.open ? `/api/progressnote/${props.id}` : null)
 
   const [fetchLoading, setFetchLoading] = useState(false)
   const {
@@ -508,7 +504,7 @@ const EditDialog = (props: DialogProps) => {
         </DialogTitle>
         {!data ? (
           <DialogContent>
-            <Box display="flex" justifyContent="center" sx={{pt:1, pb:5}}>
+            <Box display="flex" justifyContent="center" sx={{ pt: 1, pb: 5 }}>
               <CircularProgress />
             </Box>
           </DialogContent>

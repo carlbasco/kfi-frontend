@@ -3,7 +3,6 @@ import createEmotionCache from '@styles/emotionCache'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 import { Children } from 'react'
 
-
 export default class MyDocument extends Document {
   render() {
     return (

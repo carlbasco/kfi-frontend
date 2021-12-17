@@ -4,7 +4,6 @@ import thunkMiddleware, { ThunkMiddleware } from 'redux-thunk'
 import auth from './authReducer'
 import { AuthAction, AuthState, Dispatch } from './types'
 
-
 const reducers = combineReducers({ auth })
 const middleWare = thunkMiddleware as ThunkMiddleware<
   AuthState,

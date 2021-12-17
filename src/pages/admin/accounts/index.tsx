@@ -9,7 +9,7 @@ import {
   Delete,
   Edit,
   Visibility,
-  VisibilityOff,
+  VisibilityOff
 } from '@mui/icons-material'
 import { LoadingButton } from '@mui/lab'
 import {
@@ -34,7 +34,7 @@ import {
   Radio,
   RadioGroup,
   TextField,
-  Typography,
+  Typography
 } from '@mui/material'
 import { Box } from '@mui/system'
 import {
@@ -43,7 +43,7 @@ import {
   AccountFormYup,
   AccountUpdateDefaultValues,
   AccountUpdateForm,
-  AccountUpdateFormYup,
+  AccountUpdateFormYup
 } from '@validation'
 import Head from 'next/head'
 import Link from 'next/link'

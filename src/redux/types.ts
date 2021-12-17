@@ -6,7 +6,7 @@ export interface User {
   middleName?: string
   lastName: string
   role: string
-  branchName:string
+  branchName: string
 }
 
 export interface AuthState {

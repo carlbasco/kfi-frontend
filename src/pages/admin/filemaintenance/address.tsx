@@ -7,7 +7,6 @@ import { Box } from '@mui/system'
 import Head from 'next/head'
 import Link from 'next/link'
 
-
 const Address = () => {
   return (
     <>

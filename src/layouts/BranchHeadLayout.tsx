@@ -9,7 +9,7 @@ import {
   Tab,
   Tabs,
   Toolbar,
-  Typography,
+  Typography
 } from '@mui/material'
 import { Box } from '@mui/system'
 import { ReduxState } from '@redux'
@@ -76,7 +76,7 @@ const SocialWorkerLayout = ({ children }: Props) => {
                 Hello, {accountName}!
               </Typography>
               <Typography variant="caption">
-                {user.branchName} - Head
+                {user.branchName} - Branch Head
               </Typography>
             </Box>
           </Box>
