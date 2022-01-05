@@ -3,12 +3,12 @@ import { css } from '@emotion/react'
 import { ApiAuth, Snackbar } from '@lib'
 import { Notifications } from '@mui/icons-material'
 import {
-    Badge,
-    Divider,
-    IconButton,
-    Menu,
-    MenuItem,
-    Typography
+  Badge,
+  Divider,
+  IconButton,
+  Menu,
+  MenuItem,
+  Typography,
 } from '@mui/material'
 import { Box } from '@mui/system'
 import dayjs from 'dayjs'
@@ -17,10 +17,9 @@ import { useRouter } from 'next/router'
 import { MouseEvent, useEffect, useState } from 'react'
 import useSWR, { mutate } from 'swr'
 
-
 dayjs.extend(relativeTime)
 
-const Notification = () => {
+const NotificationMenu = () => {
   const router = useRouter()
   const { data: notifApi } = useSWR('/api/notification')
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -50,6 +49,33 @@ const Notification = () => {
   }
 
   const [notifCount, setNotifCount] = useState(0)
+
+  const newBrowserNotification = () => {
+    if (notifApi && notifApi?.length > 0) {
+      const temp = notifApi.filter((item: any) => item.isRead === false)
+      temp.forEach((item: any) => {
+        new Notification('Unread Notification', {
+          body: item.message,
+          tag: item.id,
+          renotify: true,
+          icon: "/logo.png",
+        }).onclick = () => {
+          window.focus()
+          onClickReadNotification(item.id, item.url)
+        }
+      })
+    }
+  }
+  const browserNotification = () => {
+    if (!('Notification' in window)) {
+      Snackbar.info('This browser does not support desktop notification')
+    } else {
+      if (Notification.permission === 'granted') return newBrowserNotification()
+      if (Notification.permission !== 'denied')
+        Notification.requestPermission().then(() => newBrowserNotification())
+    }
+  }
+
   useEffect(() => {
     if (notifApi && notifApi?.length > 0) {
       const temp = notifApi?.filter((item: any) => item.isRead === false)
@@ -57,6 +83,7 @@ const Notification = () => {
     } else {
       setNotifCount(0)
     }
+    browserNotification()
   }, [notifApi])
 
   return (
@@ -221,4 +248,4 @@ const styles = {
   `,
 }
 
-export default Notification
+export default NotificationMenu
