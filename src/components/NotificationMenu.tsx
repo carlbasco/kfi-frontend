@@ -50,32 +50,6 @@ const NotificationMenu = () => {
 
   const [notifCount, setNotifCount] = useState(0)
 
-  const newBrowserNotification = () => {
-    if (notifApi && notifApi?.length > 0) {
-      const temp = notifApi.filter((item: any) => item.isRead === false)
-      temp.forEach((item: any) => {
-        new Notification('Unread Notification', {
-          body: item.message,
-          tag: item.id,
-          renotify: true,
-          icon: "/logo.png",
-        }).onclick = () => {
-          window.focus()
-          onClickReadNotification(item.id, item.url)
-        }
-      })
-    }
-  }
-  const browserNotification = () => {
-    if (!('Notification' in window)) {
-      Snackbar.info('This browser does not support desktop notification')
-    } else {
-      if (Notification.permission === 'granted') return newBrowserNotification()
-      if (Notification.permission !== 'denied')
-        Notification.requestPermission().then(() => newBrowserNotification())
-    }
-  }
-
   useEffect(() => {
     if (notifApi && notifApi?.length > 0) {
       const temp = notifApi?.filter((item: any) => item.isRead === false)
@@ -83,8 +57,46 @@ const NotificationMenu = () => {
     } else {
       setNotifCount(0)
     }
-    browserNotification()
   }, [notifApi])
+
+  useEffect(() => {
+    const onClickNotif = async (id: number, url: string) => {
+      router.push(url)
+      try {
+        await ApiAuth.post('/api/notification/' + id)
+        mutate('/api/notification')
+      } catch (err) {
+        if (err.response?.data) Snackbar.error(err.response?.data?.message)
+      }
+    }
+    const newBrowserNotification = () => {
+      if (notifApi && notifApi?.length > 0) {
+        const temp = notifApi.filter((item: any) => item.isRead === false)
+        temp.forEach((item: any) => {
+          new Notification('Unread Notification', {
+            body: item.message,
+            tag: item.id,
+            renotify: true,
+            icon: '/logo.png',
+          }).onclick = () => {
+            window.focus()
+            onClickNotif(item.id, item.url)
+          }
+        })
+      }
+    }
+    const browserNotification = () => {
+      if (!('Notification' in window)) {
+        Snackbar.info('This browser does not support desktop notification')
+      } else {
+        if (Notification.permission === 'granted')
+          return newBrowserNotification()
+        if (Notification.permission !== 'denied')
+          Notification.requestPermission().then(() => newBrowserNotification())
+      }
+    }
+    browserNotification()
+  }, [notifApi, router])
 
   return (
     <>
