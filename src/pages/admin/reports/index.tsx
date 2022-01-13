@@ -4,7 +4,9 @@ import {
   BudgetListDoc,
   CaseDoc,
   CaseListDoc,
-  RequestListDoc
+  RequestListDoc,
+  SocialWorkerDoc,
+  TypeRequestCaseDoc,
 } from '@components'
 import { css } from '@emotion/react'
 import { AdminLayout } from '@layouts'
@@ -12,7 +14,7 @@ import { ApiAuth, Snackbar } from '@lib'
 import {
   LoadingButton,
   LocalizationProvider,
-  MobileDateRangePicker
+  MobileDateRangePicker,
 } from '@mui/lab'
 import DateAdapter from '@mui/lab/AdapterDayjs'
 import { DateRange } from '@mui/lab/DateRangePicker/RangeTypes'
@@ -23,7 +25,7 @@ import {
   MenuItem,
   Paper,
   TextField,
-  Typography
+  Typography,
 } from '@mui/material'
 import { Box } from '@mui/system'
 import { PDFViewer } from '@react-pdf/renderer'
@@ -88,6 +90,8 @@ const Report = () => {
   const [budgetPdf, setBudgetPdf] = useState({})
   const [budgetListPdf, setBudgetListPdf] = useState([])
   const [requestListPdf, setRequestListPdf] = useState([])
+  const [typeRequestPDF, setTypeRequestPDF] = useState([])
+  const [socialWorkerCasePDF, setSocialWorkerCasePDF] = useState([])
 
   const [fetchLoading, setFetchLoading] = useState(false)
 
@@ -97,6 +101,8 @@ const Report = () => {
     setBudgetListPdf([])
     setBudgetPdf([])
     setRequestListPdf([])
+    setTypeRequestPDF([])
+    setSocialWorkerCasePDF([])
   }
 
   const handleChangeReportType = (
@@ -159,6 +165,18 @@ const Report = () => {
           return Snackbar.info('Report List for this type of request is empty')
         setRequestListPdf(data)
       }
+      if (reportType === 'typeRequestCase') {
+        setDefaultPDF()
+        const res = await ApiAuth.get('/api/report/typerequestcase')
+        const data = await res.data
+        setTypeRequestPDF(data)
+      }
+      if (reportType === 'socialworkercase') {
+        setDefaultPDF()
+        const res = await ApiAuth.get('/api/report/socialworkercase')
+        const data = await res.data
+        setSocialWorkerCasePDF(data)
+      }
     } catch (err) {
       if (err.reponse?.data) Snackbar.error(err.reponse?.data?.message)
     } finally {
@@ -216,6 +234,12 @@ const Report = () => {
                     <MenuItem value="budget">Budget</MenuItem>
                     <MenuItem value="budgetList">Budget List</MenuItem>
                     <MenuItem value="requestList">Type of Request</MenuItem>
+                    <MenuItem value="typeRequestCase">
+                      Type of Request&apos;s Case
+                    </MenuItem>
+                    <MenuItem value="socialworkercase">
+                      Social Worker&apos;s Case
+                    </MenuItem>
                   </TextField>
                   {reportType === 'case' && (
                     <Autocomplete
@@ -533,6 +557,20 @@ const Report = () => {
                     data={requestListPdf}
                     date={requestListValue.date}
                   />
+                </PDFViewer>
+              </Grid>
+            )}
+            {typeRequestPDF && typeRequestPDF.length > 0 && (
+              <Grid item xs={12} lg={8}>
+                <PDFViewer width="100%" height="1200px">
+                  <TypeRequestCaseDoc user={user} data={typeRequestPDF} />
+                </PDFViewer>
+              </Grid>
+            )}
+            {socialWorkerCasePDF && socialWorkerCasePDF.length > 0 && (
+              <Grid item xs={12} lg={8}>
+                <PDFViewer width="100%" height="1200px">
+                  <SocialWorkerDoc user={user} data={socialWorkerCasePDF} />
                 </PDFViewer>
               </Grid>
             )}
