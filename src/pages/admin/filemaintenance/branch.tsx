@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { CustomTable, PhoneNumberFormat } from '@components'
+import { CustomTable } from '@components'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AdminLayout } from '@layouts'
 import { ApiAuth, Snackbar } from '@lib'
@@ -15,14 +15,10 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  FormControl,
-  FormHelperText,
   Grid,
   IconButton,
-  InputLabel,
-  OutlinedInput,
   TextField,
-  Typography
+  Typography,
 } from '@mui/material'
 import { Box } from '@mui/system'
 import styles from '@styles/filemaintenance'
@@ -125,7 +121,8 @@ const Branch = () => {
                 align: 'center',
                 field: '',
                 minWidth: '142px',
-                render: (rowData) => `+63 ${rowData.phone}`,
+                render: (rowData) =>
+                  rowData.User?.phone ? `${rowData.User?.phone}` : '-',
               },
               {
                 title: 'Address',
@@ -288,27 +285,6 @@ const NewDialog = ({ open, handleDialog }: DialogProps) => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <FormControl fullWidth variant="outlined">
-                  <InputLabel>Contact Number</InputLabel>
-                  <Controller
-                    control={control}
-                    name="phone"
-                    render={({ field }) => (
-                      <OutlinedInput
-                        {...field}
-                        id="phone"
-                        name="phone"
-                        label="Contact Number"
-                        inputComponent={PhoneNumberFormat as any}
-                      />
-                    )}
-                  />
-                  <FormHelperText error={Boolean(errors.phone)}>
-                    {errors.phone?.message}
-                  </FormHelperText>
-                </FormControl>
-              </Grid>
-              <Grid item xs={12}>
                 <Controller
                   name="address"
                   control={control}
@@ -459,7 +435,6 @@ const EditDialog = ({ id, open, handleDialog }: EditDialogProps) => {
   useEffect(() => {
     if (data) {
       setValue('branchName', data.branchName)
-      setValue('phone', data.phone)
       setValue('address', data.address)
     }
   }, [data, setValue])
@@ -560,27 +535,6 @@ const EditDialog = ({ id, open, handleDialog }: EditDialogProps) => {
                         />
                       )}
                     />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <FormControl fullWidth variant="outlined">
-                      <InputLabel>Contact Number</InputLabel>
-                      <Controller
-                        control={control}
-                        name="phone"
-                        render={({ field }) => (
-                          <OutlinedInput
-                            {...field}
-                            id="phone"
-                            name="phone"
-                            label="Contact Number"
-                            inputComponent={PhoneNumberFormat as any}
-                          />
-                        )}
-                      />
-                      <FormHelperText error={Boolean(errors.phone)}>
-                        {errors.phone?.message}
-                      </FormHelperText>
-                    </FormControl>
                   </Grid>
                   <Grid item xs={12}>
                     <Controller

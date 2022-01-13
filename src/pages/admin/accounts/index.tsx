@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { CustomTable } from '@components'
+import { CustomTable, PhoneNumberFormat } from '@components'
 import { css } from '@emotion/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AdminLayout } from '@layouts'
@@ -9,7 +9,7 @@ import {
   Delete,
   Edit,
   Visibility,
-  VisibilityOff
+  VisibilityOff,
 } from '@mui/icons-material'
 import { LoadingButton } from '@mui/lab'
 import {
@@ -34,7 +34,7 @@ import {
   Radio,
   RadioGroup,
   TextField,
-  Typography
+  Typography,
 } from '@mui/material'
 import { Box } from '@mui/system'
 import {
@@ -43,7 +43,7 @@ import {
   AccountFormYup,
   AccountUpdateDefaultValues,
   AccountUpdateForm,
-  AccountUpdateFormYup
+  AccountUpdateFormYup,
 } from '@validation'
 import Head from 'next/head'
 import Link from 'next/link'
@@ -125,6 +125,12 @@ const Admin = () => {
                 align: 'left',
                 field: 'branch.branchName',
                 render: (rowData) => `${rowData.branch.branchName}`,
+              },
+              {
+                title: 'Contact Number',
+                align: 'left',
+                field: 'phone',
+                render: (rowData) => `+63 ${rowData.phone}`,
               },
               {
                 title: 'Role',
@@ -387,6 +393,25 @@ const NewDialog = ({ open, handleDialog }: DialogProps) => {
                 </TextField>
               )}
             />
+            <FormControl fullWidth variant="outlined" margin="dense">
+              <InputLabel>Contact Number</InputLabel>
+              <Controller
+                control={control}
+                name="phone"
+                render={({ field }) => (
+                  <OutlinedInput
+                    {...field}
+                    id="phone"
+                    name="phone"
+                    label="Contact Number"
+                    inputComponent={PhoneNumberFormat as any}
+                  />
+                )}
+              />
+              <FormHelperText error={Boolean(errors.phone)}>
+                {errors.phone?.message}
+              </FormHelperText>
+            </FormControl>
           </DialogContent>
           <DialogActions>
             <LoadingButton
@@ -445,6 +470,7 @@ const EditDialog = ({ open, handleDialog, id }: EditDialogProps) => {
       setValue('role', data.role)
       setValue('branchId', data.branchId)
       setValue('isActive', data.isActive.toString())
+      setValue('phone', data.phone)
     }
   }, [data, setValue])
 
@@ -612,6 +638,25 @@ const EditDialog = ({ open, handleDialog, id }: EditDialogProps) => {
                     </TextField>
                   )}
                 />
+                <FormControl fullWidth variant="outlined" margin="dense">
+                  <InputLabel>Contact Number</InputLabel>
+                  <Controller
+                    control={control}
+                    name="phone"
+                    render={({ field }) => (
+                      <OutlinedInput
+                        {...field}
+                        id="phone"
+                        name="phone"
+                        label="Contact Number"
+                        inputComponent={PhoneNumberFormat as any}
+                      />
+                    )}
+                  />
+                  <FormHelperText error={Boolean(errors.phone)}>
+                    {errors.phone?.message}
+                  </FormHelperText>
+                </FormControl>
                 <Controller
                   name="password"
                   control={control}
