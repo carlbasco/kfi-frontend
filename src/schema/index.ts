@@ -81,6 +81,7 @@ export const AccountFormYup = yup.object().shape({
   lastName: yupStringReq,
   role: yupStringReq,
   branchId: yupNumReq,
+  phone: yupStringReq,
 })
 
 export const AccountDefaultValues = {
@@ -90,6 +91,7 @@ export const AccountDefaultValues = {
   lastName: '',
   role: '',
   branchId: '',
+  phone: '',
 }
 export interface AccountForm {
   username: string
@@ -98,6 +100,7 @@ export interface AccountForm {
   lastName: string
   role: string
   branchId: number
+  phone: string
 }
 
 export const AccountUpdateFormYup = yup.object().shape({
@@ -106,6 +109,7 @@ export const AccountUpdateFormYup = yup.object().shape({
   lastName: yupStringReq,
   role: yupStringReq,
   branchId: yupNumReq,
+  phone: yupStringReq,
   password: yup.string().trim(),
   confirmPassword: yup
     .string()
@@ -123,6 +127,7 @@ export const AccountUpdateDefaultValues = {
   password: '',
   confirmPassword: '',
   isActive: '',
+  phone: '',
 }
 export interface AccountUpdateForm {
   firstName: string
@@ -131,6 +136,7 @@ export interface AccountUpdateForm {
   isActive: string
   role: string
   branchId: number
+  phone: string
 }
 
 export const BranchAccountFormYup = yup.object().shape({
@@ -143,6 +149,7 @@ export const BranchAccountFormYup = yup.object().shape({
   middleName: yupString,
   lastName: yupStringReq,
   role: yupStringReq,
+  phone: yupStringReq,
 })
 
 export const BranchAccountDefaultValues = {
@@ -151,6 +158,7 @@ export const BranchAccountDefaultValues = {
   middleName: '',
   lastName: '',
   role: '',
+  phone: '',
 }
 export interface BranchAccountForm {
   username: string
@@ -158,6 +166,7 @@ export interface BranchAccountForm {
   middleName: string
   lastName: string
   role: string
+  phone:string
 }
 export const BranchAccountUpdateFormYup = yup.object().shape({
   username: yup
@@ -169,6 +178,7 @@ export const BranchAccountUpdateFormYup = yup.object().shape({
   middleName: yupString,
   lastName: yupStringReq,
   role: yupStringReq,
+  phone: yupStringReq,
 })
 
 export const BranchAccountUpdateDefaultValues = {
@@ -177,6 +187,7 @@ export const BranchAccountUpdateDefaultValues = {
   middleName: '',
   lastName: '',
   role: '',
+  phone:''
 }
 export interface BranchAccountUpdateForm {
   username: string
@@ -184,6 +195,7 @@ export interface BranchAccountUpdateForm {
   middleName: string
   lastName: string
   role: string
+  phone:string
 }
 
 export const CaseFormYup = yup.object().shape({
@@ -461,7 +473,6 @@ export const RecommendationDefaultValues = {
 
 export const BranchFormYup = yup.object().shape({
   branchName: yupStringReq,
-  phone: yupString,
   address: yupStringReq,
   brgy_code: yupNumReq,
   city_code: yupNumReq,
@@ -469,7 +480,6 @@ export const BranchFormYup = yup.object().shape({
 })
 export const BranchDefaultValues = {
   branchName: '',
-  phone: '',
   address: '',
   brgy_code: '',
   city_code: '',
@@ -480,7 +490,6 @@ export interface BranchForm {
   firstName: string
   middleName?: string
   lastName: string
-  phone?: string
   address: string
   brgy_code: number
   city_code: number
