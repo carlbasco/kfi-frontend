@@ -1,7 +1,7 @@
 import {
   StyledAccordion,
   StyledAccordionDetails,
-  StyledAccordionSummary
+  StyledAccordionSummary,
 } from './Accordion'
 import AssessmentRemark from './AssessmentRemark'
 import AuthLoading from './AuthLoading'
@@ -32,6 +32,8 @@ import TablePaginationAction from './TablePaginationAction'
 import TableProvince from './TableProvince'
 import TypeRequest from './TypeRequest'
 import Upload from './Upload'
+import SocialWorkerDoc from './SocialWorkerDoc'
+import TypeRequestCaseDoc from './TypeRequestCaseDoc'
 
 export {
   Loading,
@@ -66,5 +68,6 @@ export {
   BudgetDoc,
   BudgetListDoc,
   RequestListDoc,
+  SocialWorkerDoc,
+  TypeRequestCaseDoc,
 }
-
